@@ -68,8 +68,9 @@ table inet filter {
 
 EOF
 
+systemctl restart nftables
+
 systemctl enable yggdrasil
 systemctl restart yggdrasil
-systemctl restart nftables
 
 ip addr show
