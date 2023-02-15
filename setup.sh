@@ -68,5 +68,7 @@ table inet filter {
 
 EOF
 
+systemctl enable yggdrasil
+systemctl restart yggdrasil
 
 ip addr show
