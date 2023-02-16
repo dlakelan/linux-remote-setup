@@ -15,9 +15,15 @@ timedatectl set-local-rtc 0
 timedatectl set-ntp 1
 systemctl restart systemd-timesyncd
 
+timedatectl
+
+echo "waiting 5 seconds for time sync..."
+
 sleep 5
 
-#now that the time is correct, we won't have signature issues with package sources
+timedatectl timesync-status
+
+#now that the time is hopefully correct, we won't have signature issues with package sources
 
 apt-get update
 apt-get -y install yggdrasil vinagre
@@ -27,6 +33,8 @@ grep "corn.chowder.land" /etc/yggdrasil/yggdrasil.conf || yggdrasil -genconf |
 
 
 cat > /etc/nftables.conf << EOF
+
+flush ruleset 
 
 table inet filter {
 
