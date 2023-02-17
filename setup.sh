@@ -28,7 +28,7 @@ timedatectl timesync-status
 apt-get update
 apt-get -y install yggdrasil vinagre
 
-grep "corn.chowder.land" /etc/yggdrasil/yggdrasil.conf || yggdrasil -genconf | 
+yggdrasil -genconf | 
   sed -E -e "s&Peers:.*&Peers: [\ntcp://corn.chowder.land:9002\n]&" -e "s/IfName.*/IfName: ygg0/" > /etc/yggdrasil/yggdrasil.conf
 
 
