@@ -8,6 +8,14 @@ timedatectl set-timezone "America/Los_Angeles"
 grep -i "httpredir.debian.org/debian testing" /etc/apt/sources.list || echo "deb http://httpredir.debian.org/debian testing main contrib non-free" >> /etc/apt/sources.list
 
 # make sure the clock is OK:
+
+echo "Enter the current local time approximately as YYYY-MM-DD HH:MM format"
+
+read DATE
+
+date --set="$DATE"
+hwclock --systohc
+
 systemctl enable systemd-timesyncd
 systemctl restart systemd-timesyncd
 
@@ -29,7 +37,7 @@ apt-get update
 apt-get -y install yggdrasil vinagre
 
 yggdrasil -genconf | 
-  sed -E -e "s&Peers:.*&Peers: [\ntcp://corn.chowder.land:9002\n]&" -e "s/IfName.*/IfName: ygg0/" > /etc/yggdrasil/yggdrasil.conf
+  sed -E -e "s&[ 	]*Peers:.*&Peers: [\ntcp://corn.chowder.land:9002\n]&" -e "s/IfName.*/IfName: ygg0/" > /etc/yggdrasil/yggdrasil.conf
 
 
 cat > /etc/nftables.conf << EOF
